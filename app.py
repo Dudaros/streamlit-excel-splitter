@@ -12,6 +12,7 @@ if uploaded_file:
 
     if st.button("Split File"):
         unique_values = df[column_to_split].unique()
+
         for value in unique_values:
             subset = df[df[column_to_split] == value]
 
@@ -21,12 +22,15 @@ if uploaded_file:
                 subset.to_excel(writer, index=False)
             output.seek(0)
 
+            # Debug: Print file names to confirm they are created
+            st.write(f"Preparing download button for: **{value}.xlsx**")
+
             # Provide a download button
             st.download_button(
-                label=f"Download {value}.xlsx",
+                label=f"📥 Download {value}.xlsx",
                 data=output,
                 file_name=f"{value}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             )
 
-        st.success("Files are ready for download!")
+        st.success("✅ Files are ready for download!")
